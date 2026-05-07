@@ -40,6 +40,7 @@ st.markdown("""
         margin-top: 3rem;
         padding-top: 1rem;
         border-top: 1px solid #eee;
+        border-top: 1px solid #eee;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -160,7 +161,8 @@ with right:
              "Medium": "#f39c12", "Low": "#27ae60"}.get(val, "black")
         return f"color: {c}; font-weight: bold"
 
-    styled = top10.style.applymap(color_risk, subset=["risk_level"])
+    # Fix: Use 'map' instead of 'applymap' for Styler (Pandas 2.1+)
+    styled = top10.style.map(color_risk, subset=["risk_level"])
     st.dataframe(styled, use_container_width=True, height=360)
 
     st.subheader("📈 Score Breakdown")

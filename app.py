@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import os
 
 st.set_page_config(
     page_title="HazardIQ — Climate & Health Risk Intelligence",
@@ -64,6 +63,7 @@ def get_data():
 df = get_data()
 
 # ── Sidebar Filters ──────────────────────────────────────────────────────────
+import os
 if os.path.exists("assets/kdih_logo.png"):
     st.sidebar.image("assets/kdih_logo.png", use_container_width=True)
 
@@ -161,7 +161,7 @@ with left:
             margin=dict(l=10, r=40, t=10, b=30),
             xaxis=dict(range=[0, 110])
         )
-        st.plotly_chart(fig, width='stretch')
+        st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("No data matches the current filters.")
 
@@ -185,7 +185,7 @@ with right:
 
         # .map() replaces deprecated .applymap() in pandas 2.1+
         styled = top10.style.map(color_risk, subset=["risk_level"])
-        st.dataframe(styled, width='stretch', height=360)
+        st.dataframe(styled, use_container_width=True, height=360)
     else:
         st.info("No LGAs to display.")
 
@@ -209,7 +209,7 @@ with right:
             margin=dict(l=40, r=40, t=20, b=20),
             showlegend=False
         )
-        st.plotly_chart(radar_fig, width='stretch')
+        st.plotly_chart(radar_fig, use_container_width=True)
 
 # ── Full Data Table ──────────────────────────────────────────────────────────
 st.markdown("---")
@@ -225,7 +225,7 @@ if len(filtered) > 0:
         filtered[display_cols]
             .sort_values("overall_score", ascending=False)
             .reset_index(drop=True),
-        width='stretch',
+        use_container_width=True,
         height=300
     )
 
